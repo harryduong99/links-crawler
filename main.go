@@ -1,14 +1,15 @@
-package main 
+package main
 
 import (
 	// "io/ioutil"
+	"crypto/tls"
+	"fmt"
 	"log"
 	"net/http"
-	"os"
-	"fmt"
-	"crypto/tls"
-	"github.com/steelx/extractlinks"
 	"net/url"
+	"os"
+
+	"github.com/steelx/extractlinks"
 )
 
 var (
@@ -21,9 +22,9 @@ var (
 	netClient = &http.Client{
 		Transport: transport,
 	}
+	queue = make(chan string)
 )
 
- 
 func main() {
 	arg := os.Args[1:]
 
@@ -32,7 +33,14 @@ func main() {
 		os.Exit(1)
 	}
 
-	baseURL := arg[0]
+	// baseURL := arg[0]
+	go func() {
+		queue <- agr[0]
+	}()
+
+	for href := range queue {
+		CrawlUrl(href)
+	}
 	fmt.Printf("base url: %v\n", baseURL)
 	// baseUrl := "https://hopamviet.vn/"
 
@@ -45,7 +53,7 @@ func CrawlUrl(href string) {
 	resp, err := netClient.Get(href)
 
 	if err != nil {
-	   log.Fatalln(err)
+		log.Fatalln(err)
 	}
 
 	defer resp.Body.Close()
@@ -53,10 +61,10 @@ func CrawlUrl(href string) {
 	links, err := extractlinks.All(resp.Body)
 	for _, link := range links {
 		fmt.Println(link.Href)
-		// if (link.Href == "https://hopamviet.vn/" || link.Href == "https://hopamviet.vn") {
-			// fmt.Printf("Not this one!")
-			// return
-		// }
+		absoluteUrl := toFixedUrl(link.Href, href)
+		go func(link) {
+			queue <- absoluteUrl
+		}()
 		// CrawlUrl(toFixedUrl(link.Href, href))
 
 	}
@@ -76,7 +84,7 @@ func toFixedUrl(href, base string) string {
 }
 
 func checkErr(err error) {
-	if (err != nil) {
+	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
