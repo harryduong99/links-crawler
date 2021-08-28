@@ -1,10 +1,11 @@
 package extractlinks
 
 import (
-	"golang.org/x/net/html"
 	"io"
 	"strconv"
 	"strings"
+
+	"golang.org/x/net/html"
 )
 
 // Link object for parsing an anchor link
