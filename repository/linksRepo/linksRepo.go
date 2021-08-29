@@ -27,6 +27,25 @@ func StoreLink(link models.Link) error {
 	return nil
 }
 
+func StoreLinks(links []models.Link) error {
+	collection := driver.Mongo.ConnectCollection(config.DB_NAME, config.COL_LINKS)
+
+	docs := []interface{}{}
+
+	for _, link := range links {
+		bbytes, _ := bson.Marshal(link)
+		docs = append(docs, bbytes)
+	}
+
+	_, err := collection.InsertMany(context.Background(), docs)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func IsLinkExist(href string) bool {
 	link := models.Link{}
 
@@ -84,7 +103,6 @@ func PrintAll() {
 
 	for cur.Next(context.TODO()) {
 
-		// declare a result BSON object
 		var result bson.M
 		err := cur.Decode(&result)
 
