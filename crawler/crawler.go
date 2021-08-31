@@ -31,9 +31,10 @@ var (
 )
 
 var Result = []string{}
+var DBType string
 
-func Crawling() {
-
+func Crawling(DbType string) {
+	DBType = DbType
 	arg := os.Args[2:]
 
 	if len(arg) == 0 {
@@ -111,7 +112,7 @@ func insertLinkToDb(href string) bool {
 		Domain:  getDomain(href),
 	}
 
-	if linksRepo.IsLinkExist(href) {
+	if linksRepo.GetLinksRepo(DBType).IsLinkExist(href) {
 		log.Printf("%s is existing in database!", href)
 		return false
 	}
@@ -119,8 +120,8 @@ func insertLinkToDb(href string) bool {
 	chunksToInsert = append(chunksToInsert, link)
 	log.Println(len(chunksToInsert))
 
-	if len(chunksToInsert) == 30 {
-		err := linksRepo.StoreLinks(chunksToInsert)
+	if len(chunksToInsert) == 3 {
+		err := linksRepo.GetLinksRepo(DBType).StoreLinks(chunksToInsert)
 		if err != nil {
 			log.Printf("storing href: %s failed!", href)
 			return false

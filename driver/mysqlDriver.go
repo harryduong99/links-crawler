@@ -3,6 +3,8 @@ package driver
 import (
 	"database/sql"
 	"os"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type Mysql struct {

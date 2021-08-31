@@ -1,18 +1,17 @@
 package driver
 
+import "song-chord-crawler/config"
+
 type IDbFactory interface {
 	ConnectDatabase()
 }
 
-const MONGODB = "mongodb"
-const MYSQL = "mysql"
-
 func GetDbDriverFactory(dbType string) IDbFactory {
 
 	switch dbType {
-	case MONGODB:
+	case config.MONGODB:
 		return &MongoDB{}
-	case MYSQL:
+	case config.MYSQL:
 		return &Mysql{}
 	}
 

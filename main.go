@@ -9,16 +9,19 @@ import (
 	"github.com/joho/godotenv"
 )
 
+var DbType string
+
 func main() {
 	loadEnv()
 	loadDatabase()
-	crawler.Crawling()
+	crawler.Crawling(DbType)
 
 	// time.Sleep(100 * time.Second)
 }
 func loadDatabase() {
 	arg := os.Args[1:2]
-	driver.GetDbDriverFactory(arg[0]).ConnectDatabase()
+	DbType = arg[0]
+	driver.GetDbDriverFactory(DbType).ConnectDatabase()
 }
 func loadEnv() {
 	err := godotenv.Load(".env")
