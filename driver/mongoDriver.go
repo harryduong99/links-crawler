@@ -17,10 +17,10 @@ type MongoDB struct {
 
 var Mongo = &MongoDB{}
 
-func ConnectMongoDB(user, password string) *MongoDB {
+func (mongodb *MongoDB) ConnectDatabase() {
 
-	connStr := getConnectionString(user, password)
-	client, err := mongo.NewClient(options.Client().ApplyURI(connStr))
+	// connStr := getConnectionString(user, password)
+	client, err := mongo.NewClient(options.Client().ApplyURI(getConnectionString()))
 
 	if err != nil {
 		panic(err)
@@ -39,20 +39,19 @@ func ConnectMongoDB(user, password string) *MongoDB {
 
 	fmt.Println("connection ok")
 	Mongo.Client = client
-	return Mongo
 }
 
-func (driver *MongoDB) ConnectCollection(databaseName, collectionName string) *mongo.Collection {
-	return driver.Client.Database(databaseName).Collection(collectionName)
+func (mongodb *MongoDB) ConnectCollection(databaseName, collectionName string) *mongo.Collection {
+	return mongodb.Client.Database(databaseName).Collection(collectionName)
 }
 
-func getConnectionString(user, password string) string {
+func getConnectionString() string {
 
 	if os.Getenv("LOCAL_MODE") == "on" {
 		return os.Getenv("MONGODB_CONNECTION_LOCAL")
 	}
 
-	connStr := fmt.Sprintf(os.Getenv("MONGODB_CONNECTION_ONL"), user, password)
+	connStr := os.Getenv("MONGODB_CONNECTION_ONL")
 
 	return connStr
 }

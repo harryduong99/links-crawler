@@ -2,21 +2,24 @@ package main
 
 import (
 	"log"
+	"os"
 	"song-chord-crawler/crawler"
 	"song-chord-crawler/driver"
-	"time"
 
 	"github.com/joho/godotenv"
 )
 
 func main() {
 	loadEnv()
-	driver.ConnectMongoDB("harry", "harry")
+	loadDatabase()
 	crawler.Crawling()
 
-	time.Sleep(10 * time.Second)
+	// time.Sleep(100 * time.Second)
 }
-
+func loadDatabase() {
+	arg := os.Args[1:2]
+	driver.GetDbDriverFactory(arg[0]).ConnectDatabase()
+}
 func loadEnv() {
 	err := godotenv.Load(".env")
 

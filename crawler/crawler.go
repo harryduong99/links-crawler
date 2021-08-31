@@ -34,7 +34,7 @@ var Result = []string{}
 
 func Crawling() {
 
-	arg := os.Args[1:]
+	arg := os.Args[2:]
 
 	if len(arg) == 0 {
 		fmt.Printf("Missing Url")
@@ -48,7 +48,7 @@ func Crawling() {
 	time.Sleep(2 * time.Second)
 
 	for href := range queue {
-		if !hasVisited[href] && isSameDomain(href, baseURL) { // should check is same domain too
+		if !hasVisited[href] && isSameDomain(href, baseURL) {
 			// w.Add(1)
 			go func() {
 				insertLinkToDb(href)
@@ -119,7 +119,7 @@ func insertLinkToDb(href string) bool {
 	chunksToInsert = append(chunksToInsert, link)
 	log.Println(len(chunksToInsert))
 
-	if len(chunksToInsert) == 50 {
+	if len(chunksToInsert) == 30 {
 		err := linksRepo.StoreLinks(chunksToInsert)
 		if err != nil {
 			log.Printf("storing href: %s failed!", href)
