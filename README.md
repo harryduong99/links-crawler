@@ -2,7 +2,7 @@
 
 > go run main.go mongodb https://website.com
 
-* Supporting databse:
+* Supporting database:
     * Mysql
     * MongoDb
     * Also support storing in xlsx (excel) file
