@@ -10,6 +10,7 @@ import (
 	"song-chord-crawler/crawler/extractlinks"
 	"song-chord-crawler/models"
 	"song-chord-crawler/repository/linksRepo"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -120,7 +121,12 @@ func insertLinkToDb(href string) bool {
 	chunksToInsert = append(chunksToInsert, link)
 	log.Println(len(chunksToInsert))
 
-	if len(chunksToInsert) == 3 {
+	numOfChunk, err := strconv.Atoi(os.Getenv("CHUNK_STORING_LINKS"))
+	if err != nil {
+		panic(err)
+	}
+
+	if len(chunksToInsert) == numOfChunk {
 		err := linksRepo.GetLinksRepo(DBType).StoreLinks(chunksToInsert)
 		if err != nil {
 			log.Printf("storing href: %s failed!", href)

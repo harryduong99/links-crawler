@@ -2,6 +2,7 @@ package linksRepo
 
 import (
 	"context"
+	"database/sql"
 	"log"
 	"song-chord-crawler/driver"
 	"song-chord-crawler/models"
@@ -45,7 +46,6 @@ func (linksRepo *MysqlLinksRepo) StoreLinks(links []models.Link) error {
 	}
 	queryVals := strings.Join(inserts, ",")
 	query = query + queryVals
-	log.Println("query is", query)
 	ctx, cancelfunc := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancelfunc()
 	stmt, err := driver.MysqlDB.Client.PrepareContext(ctx, query)
@@ -69,7 +69,12 @@ func (linksRepo *MysqlLinksRepo) StoreLinks(links []models.Link) error {
 }
 
 func (linksRepo *MysqlLinksRepo) IsLinkExist(href string) bool {
-	return false
+	var id int
+	row := driver.MysqlDB.Client.QueryRow("SELECT id from links WHERE url = ?", href)
+
+	err := row.Scan(&id)
+
+	return err != sql.ErrNoRows
 }
 
 func (linksRepo *MysqlLinksRepo) All() []models.Link {

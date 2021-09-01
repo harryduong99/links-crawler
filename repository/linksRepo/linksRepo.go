@@ -18,6 +18,8 @@ func GetLinksRepo(dbType string) LinksRepo {
 		return &MongoLinksRepo{}
 	case config.MYSQL:
 		return &MysqlLinksRepo{}
+	case config.XLSX:
+		return &XlsxLinksRepo{}
 	}
 
 	return nil

@@ -7,4 +7,5 @@ const (
 	COL_LINKS = "links_develop"
 	MONGODB   = "mongodb"
 	MYSQL     = "mysql"
+	XLSX      = "xlsx"
 )

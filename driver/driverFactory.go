@@ -13,6 +13,8 @@ func GetDbDriverFactory(dbType string) IDbFactory {
 		return &MongoDB{}
 	case config.MYSQL:
 		return &Mysql{}
+	case config.XLSX:
+		return &Xlsx{}
 	}
 
 	return nil
