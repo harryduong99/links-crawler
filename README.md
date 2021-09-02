@@ -5,6 +5,7 @@
 * Supporting database:
     * Mysql
     * MongoDb
+    * PostgresSQL
     * Also support storing in xlsx (excel) file
 
 # Config 
