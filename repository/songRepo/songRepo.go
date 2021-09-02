@@ -1,5 +1,0 @@
-package songRepo
-
-func StoreSong() {
-
-}

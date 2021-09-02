@@ -128,6 +128,7 @@ func insertLinkToDb(href string) bool {
 
 	if len(chunksToInsert) == numOfChunk {
 		err := linksRepo.GetLinksRepo(DBType).StoreLinks(chunksToInsert)
+
 		if err != nil {
 			log.Printf("storing href: %s failed!", href)
 			return false
