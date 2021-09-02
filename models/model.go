@@ -10,7 +10,3 @@ type Link struct {
 	Crawled bool               `json:"crawled" bson:"crawled"`
 	Domain  string             `json:"domain" bson:"domain"`
 }
-type SongChord struct {
-	ID      primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty"` // tag golang
-	Content string             `json:"content" bson:"content"`
-}

@@ -2,11 +2,11 @@
 
 > go run main.go mongodb https://website.com
 
-* Supporting database:
-    * Mysql
-    * MongoDb
-    * PostgresSQL
-    * Also support storing in xlsx (excel) file
+* Supporting databases:
+    * Mysql `mysql`
+    * MongoDb `mongodb`
+    * PostgresSQL `postgres`
+    * Also support storing in xlsx (excel) file `xlsx`
 
 # Config 
 
