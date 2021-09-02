@@ -1,8 +1,8 @@
 package linksRepo
 
 import (
-	"song-chord-crawler/config"
-	"song-chord-crawler/models"
+	"links-crawler/config"
+	"links-crawler/models"
 )
 
 type LinksRepo interface {

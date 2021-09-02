@@ -3,12 +3,12 @@ package linksRepo
 import (
 	"context"
 	"fmt"
+	"links-crawler/config"
+	"links-crawler/driver"
+	"links-crawler/models"
 	"log"
 	"os"
 	"reflect"
-	"song-chord-crawler/config"
-	"song-chord-crawler/driver"
-	"song-chord-crawler/models"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"

@@ -1,6 +1,6 @@
 package driver
 
-import "song-chord-crawler/config"
+import "links-crawler/config"
 
 type IDbFactory interface {
 	ConnectDatabase()

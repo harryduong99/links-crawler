@@ -3,9 +3,9 @@ package linksRepo
 import (
 	"context"
 	"database/sql"
+	"links-crawler/driver"
+	"links-crawler/models"
 	"log"
-	"song-chord-crawler/driver"
-	"song-chord-crawler/models"
 	"strings"
 	"time"
 )

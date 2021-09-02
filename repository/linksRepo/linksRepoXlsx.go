@@ -2,7 +2,7 @@ package linksRepo
 
 import (
 	"fmt"
-	"song-chord-crawler/models"
+	"links-crawler/models"
 
 	"github.com/xuri/excelize/v2"
 )

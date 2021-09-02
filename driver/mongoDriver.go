@@ -18,7 +18,6 @@ type MongoDB struct {
 var Mongo = &MongoDB{}
 
 func (mongodb *MongoDB) ConnectDatabase() {
-
 	// connStr := getConnectionString(user, password)
 	client, err := mongo.NewClient(options.Client().ApplyURI(getConnectionString()))
 

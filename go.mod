@@ -1,4 +1,4 @@
-module song-chord-crawler
+module links-crawler
 
 go 1.17
 

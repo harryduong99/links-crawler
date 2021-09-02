@@ -1,10 +1,11 @@
 package main
 
 import (
+	"links-crawler/crawler"
+	"links-crawler/driver"
 	"log"
 	"os"
-	"song-chord-crawler/crawler"
-	"song-chord-crawler/driver"
+	"time"
 
 	"github.com/joho/godotenv"
 )
@@ -16,11 +17,13 @@ func main() {
 	loadDatabase()
 	crawler.Crawling(DbType)
 
-	// time.Sleep(100 * time.Second)
+	time.Sleep(10 * time.Second)
 }
 func loadDatabase() {
 	arg := os.Args[1:2]
 	DbType = arg[0]
+	log.Println(driver.GetDbDriverFactory(DbType))
+	os.Exit(1)
 	driver.GetDbDriverFactory(DbType).ConnectDatabase()
 }
 func loadEnv() {
